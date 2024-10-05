@@ -29,7 +29,7 @@ class PostgresConnection implements SequelizeConnection {
 		await this.sequelize
 			.authenticate()
 			.then(() => {
-				console.log('Conexão foi estabelecida com sucesso!');
+				console.log('Conexão ao BD foi estabelecida com sucesso!');
 			})
 			.catch((err) => {
 				console.error('Não é possível conectar ao banco de dados:', err);
