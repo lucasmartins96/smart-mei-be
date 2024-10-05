@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import environmentVar from '../../env';
 import dbConfigs from '../../constants/db-configs';
 import SequelizeConnection from '../../interfaces/sequelize-connection';
+import models from '../../models';
 
 class PostgresConnection implements SequelizeConnection {
 	sequelize?: Sequelize | undefined;
@@ -22,13 +23,13 @@ class PostgresConnection implements SequelizeConnection {
 				acquire: dbConfigs.ACQUIRE_TIME_IN_MILLISECONDS,
 				idle: dbConfigs.IDLE_TIME_IN_MILLISECONDS,
 			},
-			models: [__dirname + '../../models'],
+			models,
 		});
 
 		await this.sequelize
 			.authenticate()
 			.then(() => {
-				console.log('Conexão foi estabelecida com sucesso!');
+				console.log('Conexão ao BD foi estabelecida com sucesso!');
 			})
 			.catch((err) => {
 				console.error('Não é possível conectar ao banco de dados:', err);

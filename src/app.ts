@@ -1,7 +1,7 @@
-import express, { Application } from 'express';
+import express, { Application, ErrorRequestHandler } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import ErrorHandler from './common/error-handler';
+import ErrorHandler from './middlewares/error-handler';
 import Route from './interfaces/route';
 import PostgresConnection from './config/db/postgres';
 import SequelizeConnection from './interfaces/sequelize-connection';
@@ -38,8 +38,9 @@ class App {
 	}
 
 	private initializeErrorHandling(): void {
-		this.app.use(ErrorHandler.notFound);
-		this.app.use(ErrorHandler.serverError);
+		this.app.use(
+			ErrorHandler.handleRequestErrors as unknown as ErrorRequestHandler,
+		);
 	}
 
 	private initialize(): void {
