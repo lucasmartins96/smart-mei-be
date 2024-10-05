@@ -1,5 +1,6 @@
 const environmentVar = {
 	port: Number(process.env.PORT) || 3000,
+	secretKey: process.env.SECRET_KEY_JWT,
 	db: {
 		user: process.env.DB_USER,
 		host: process.env.DB_HOST,
