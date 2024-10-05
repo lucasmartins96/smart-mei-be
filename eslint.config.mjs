@@ -10,4 +10,16 @@ export default [
 	pluginJs.configs.recommended,
 	eslintPluginPrettierRecommended,
 	...tseslint.configs.recommended,
+	{
+		rules: {
+			'no-unused-vars': [
+				'error',
+				{
+					args: 'after-used',
+					argsIgnorePattern: '^_',
+				},
+			],
+			'no-useless-catch': 'off',
+		},
+	},
 ];
