@@ -1,12 +1,15 @@
-import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
 import bcrypt from 'bcrypt';
-import environmentVar from '../env';
 import NotFoundError from '../common/request-errors/not-found';
 import BadRequestError from '../common/request-errors/bad-request';
+import { JWTService } from '../common/jwt';
 
 export default class AuthService {
-	constructor() {}
+	private jwt: JWTService;
+
+	constructor() {
+		this.jwt = new JWTService();
+	}
 
 	async login(
 		email?: string,
@@ -36,18 +39,12 @@ export default class AuthService {
 				});
 			}
 
-			const token = jwt.sign(
-				{
-					id: foundUser?.id,
-					name: foundUser?.name,
-					email: foundUser?.email,
-					role: foundUser.role,
-				},
-				environmentVar.secretKey!,
-				{
-					expiresIn: '30m',
-				},
-			);
+			const token = this.jwt.generateToken({
+				id: foundUser?.id,
+				name: foundUser?.name,
+				email: foundUser?.email,
+				role: foundUser.role,
+			});
 
 			return {
 				id: foundUser.id,
