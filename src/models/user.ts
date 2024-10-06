@@ -1,3 +1,4 @@
+import { Optional } from 'sequelize';
 import {
 	Table,
 	Column,
@@ -9,8 +10,18 @@ import {
 	AllowNull,
 } from 'sequelize-typescript';
 
+interface UserAttributes {
+	id: number;
+	name: string;
+	email: string;
+	password: string;
+	role: string;
+}
+
+type UserCreationAttributes = Optional<UserAttributes, 'id'>;
+
 @Table({ tableName: 'usuario', updatedAt: false })
-export class User extends Model<User> {
+export class User extends Model<UserAttributes, UserCreationAttributes> {
 	@PrimaryKey
 	@AutoIncrement
 	@Column(DataType.SMALLINT)
