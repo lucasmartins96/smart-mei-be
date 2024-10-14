@@ -28,6 +28,16 @@ export default class UserController {
 			const { name, email, password, role } = req.body;
 
 			if (name && email && password && role) {
+				const isEmailRegistered = await this.service.checkEmailExists(email);
+
+				if (isEmailRegistered) {
+					return next(
+						new BadRequestError({
+							message: 'Erro ao criar o cadastro! O email já está cadastrado!',
+						}),
+					);
+				}
+
 				const newUser = await this.service.add({ name, email, password, role });
 				const newUserId = newUser!.dataValues.id;
 				const newUserName = newUser!.dataValues.name;

@@ -31,4 +31,14 @@ export default class UserService {
 			throw error;
 		}
 	}
+
+	async checkEmailExists(email: string): Promise<boolean> {
+		try {
+			const userFound = await User.findOne({ where: { email } });
+			return userFound !== null;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	}
 }
