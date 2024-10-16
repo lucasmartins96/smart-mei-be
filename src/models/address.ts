@@ -1,3 +1,4 @@
+import { Optional } from 'sequelize';
 import {
 	AllowNull,
 	AutoIncrement,
@@ -9,8 +10,24 @@ import {
 	Table,
 } from 'sequelize-typescript';
 
+interface AddressAttributes {
+	id: number;
+	zipCode: string;
+	street: string;
+	complement?: string;
+	number?: string;
+	neighborhood?: string;
+	city: string;
+	state: string;
+}
+
+type AddressCreationAttributes = Optional<AddressAttributes, 'id'>;
+
 @Table({ tableName: 'endereco', timestamps: false })
-export class Address extends Model<Address> {
+export class Address extends Model<
+	AddressAttributes,
+	AddressCreationAttributes
+> {
 	@PrimaryKey
 	@AutoIncrement
 	@Column(DataType.SMALLINT)
@@ -26,7 +43,7 @@ export class Address extends Model<Address> {
 
 	@Default('')
 	@Column({ field: 'complemento' })
-	complement!: string;
+	complement?: string;
 
 	@Column({ field: 'numero' })
 	number?: string;
