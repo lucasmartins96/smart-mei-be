@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "dotenvx run -- npx nodemon"
+    "start:dev": "dotenvx run -- nodemon src/index.ts",
+    "start:debug": "dotenvx run -- nodemon --inspect src/index.ts"
   },
   "author": "Lucas Martins da Silva",
   "license": "MIT",
