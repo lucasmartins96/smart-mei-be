@@ -1,4 +1,4 @@
-import BusinessMan from '../models/business-man';
+import { BusinessMan } from '../models/business-man';
 import AddressService from './address';
 import SequelizeConnection from '../interfaces/sequelize-connection';
 import PostgresConnection from '../config/db/postgres';
