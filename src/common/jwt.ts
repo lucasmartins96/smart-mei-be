@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import environmentVar from '../env';
 import JwtUserPayload from '../interfaces/jwt';
 
-export class JWTService {
+export default class JWTService {
 	private secret: string;
 	private expiresIn: string;
 
@@ -18,15 +18,20 @@ export class JWTService {
 	public async verifyTokenAsynchronously(
 		token: string,
 	): Promise<JwtUserPayload | null> {
-		return new Promise((resolve, reject) => {
-			jwt.verify(token, this.secret, (err, decoded) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(decoded as JwtUserPayload);
-				}
+		try {
+			return new Promise((resolve, reject) => {
+				jwt.verify(token, this.secret, (err, decoded) => {
+					if (err) {
+						reject(err);
+					} else {
+						resolve(decoded as JwtUserPayload);
+					}
+				});
 			});
-		});
+		} catch (error) {
+			console.log(error);
+			throw error;
+		}
 	}
 
 	public verifyTokenSynchronously(token: string): JwtUserPayload | null {

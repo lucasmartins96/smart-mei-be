@@ -2,7 +2,7 @@ import { User } from '../models/user';
 import bcrypt from 'bcrypt';
 import NotFoundError from '../common/request-errors/not-found';
 import BadRequestError from '../common/request-errors/bad-request';
-import { JWTService } from '../common/jwt';
+import JWTService from '../common/jwt';
 
 export default class AuthService {
 	private jwt: JWTService;

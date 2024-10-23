@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import UserService from '../services/user';
 import { NextFunction, Request, Response } from 'express';
 import NotFoundError from '../common/request-errors/not-found';
-import { JWTService } from '../common/jwt';
+import JWTService from '../common/jwt';
 import BadRequestError from '../common/request-errors/bad-request';
 
 export default class UserController {

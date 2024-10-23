@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import UnauthorizedError from '../common/request-errors/unauthorized';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
-import { JWTService } from '../common/jwt';
+import JWTService from '../common/jwt';
 
 class AuthHandler {
 	private jwt: JWTService;
