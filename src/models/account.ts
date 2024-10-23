@@ -1,3 +1,4 @@
+import { Optional } from 'sequelize';
 import {
 	AutoIncrement,
 	Column,
@@ -8,8 +9,18 @@ import {
 	Table,
 } from 'sequelize-typescript';
 
+interface AccountAttributes {
+	id: number;
+	balance?: number;
+}
+
+type AccountCreationAttributes = Optional<AccountAttributes, 'id'>;
+
 @Table({ tableName: 'conta', timestamps: false })
-export class Account extends Model<Account> {
+export class Account extends Model<
+	AccountAttributes,
+	AccountCreationAttributes
+> {
 	@PrimaryKey
 	@AutoIncrement
 	@Column(DataType.SMALLINT)
