@@ -27,7 +27,7 @@ type BusinessManCreationAttributes = Optional<BusinessManAttributes, 'id'>;
 	tableName: 'empresario',
 	timestamps: false,
 })
-class BusinessMan extends Model<
+export class BusinessMan extends Model<
 	BusinessManAttributes,
 	BusinessManCreationAttributes
 > {
@@ -68,5 +68,3 @@ class BusinessMan extends Model<
 	})
 	userId!: number;
 }
-
-export default BusinessMan;
