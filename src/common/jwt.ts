@@ -1,12 +1,6 @@
 import jwt from 'jsonwebtoken';
 import environmentVar from '../env';
-
-type JwtUserPayload = {
-	id: number;
-	name: string;
-	email: string;
-	role: string;
-};
+import JwtUserPayload from '../interfaces/jwt';
 
 export class JWTService {
 	private secret: string;
