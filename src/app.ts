@@ -16,7 +16,7 @@ class App {
 		this.app = express();
 		this.port = port;
 		this.routers = routers;
-		this.dbConnection = new PostgresConnection();
+		this.dbConnection = PostgresConnection.getInstance();
 		this.initialize();
 	}
 

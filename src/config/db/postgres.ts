@@ -6,8 +6,17 @@ import models from '../../models';
 
 class PostgresConnection implements SequelizeConnection {
 	sequelize?: Sequelize | undefined;
+	static instance: PostgresConnection;
 
-	constructor() {}
+	private constructor() {}
+
+	static getInstance(): PostgresConnection {
+		if (!PostgresConnection.instance) {
+			PostgresConnection.instance = new PostgresConnection();
+		}
+
+		return PostgresConnection.instance;
+	}
 
 	async connectToDatabase(): Promise<void> {
 		const { name, user, password, port, host } = environmentVar.db;
