@@ -4,10 +4,10 @@ import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import JWTService from '../common/jwt';
 
 class AuthHandler {
-	private jwt: JWTService;
+	private jwtService: JWTService;
 
 	constructor() {
-		this.jwt = new JWTService();
+		this.jwtService = new JWTService();
 	}
 
 	async handleAuthorization(req: Request, res: Response, next: NextFunction) {
@@ -23,9 +23,10 @@ class AuthHandler {
 				);
 			}
 
-			await this.jwt.verifyTokenAsynchronously(token);
-
-			next();
+			const decodedToken =
+				await this.jwtService.verifyTokenAsynchronously(token);
+			req.user = decodedToken;
+			return next();
 		} catch (error) {
 			if (error instanceof TokenExpiredError) {
 				return next(
