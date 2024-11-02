@@ -50,7 +50,9 @@ export default class BusinessManService {
 		this.dbConnection = PostgresConnection.getInstance();
 	}
 
-	async add(props: AddProps): Promise<{ success: boolean } | null | undefined> {
+	async add(
+		props: AddProps,
+	): Promise<{ success: boolean; id?: string } | null | undefined> {
 		try {
 			const businessManFound = await this.findOne(props.businessMan.cpf);
 
@@ -64,7 +66,7 @@ export default class BusinessManService {
 				});
 
 				if (Array.isArray(updateResult) && updateResult[0] > 0) {
-					return { success: true };
+					return { success: true, id: businessManFound.id.toString() };
 				}
 
 				return { success: false };
@@ -84,7 +86,7 @@ export default class BusinessManService {
 					const created = await newBusinessMan.save({ transaction: t });
 
 					if (created) {
-						return { success: true };
+						return { success: true, id: created.id.toString() };
 					}
 
 					return { success: false };

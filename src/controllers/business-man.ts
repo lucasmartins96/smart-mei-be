@@ -58,9 +58,10 @@ export default class BusinessManController {
 					);
 				}
 
-				res
-					.status(StatusCodes.OK)
-					.json({ message: 'Empresário cadastrado com sucesso!' });
+				res.status(StatusCodes.OK).json({
+					message: 'Empresário cadastrado com sucesso!',
+					id: result.id,
+				});
 			} else {
 				next(
 					new BadRequestError({
